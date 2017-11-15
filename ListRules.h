@@ -10,7 +10,7 @@ class ListRules{
     public:
     ListRules(string initial){
         this->initial = initial;
-        numOfFinales = 0;
+        numOfFinales = -1;
     }
 
     string getInitial(){
@@ -22,20 +22,23 @@ class ListRules{
     }
 
     int getnumOfFinales(){
-        return numOfFinales;
+        return numOfFinales + 1;
     }
 
     string getFinalPerPosition(int position){
-        if(position < numOfFinales){
+        if(position <= numOfFinales){
             return listFinal [position];
         }else{
             return "";
         }
     }
+    void setFinalPerPosition(int position, string newFinal){
+        listFinal[position] = newFinal;
+    }
 
-    void addToListFinal(string nameOfNewFinal){        
-        listFinal[numOfFinales] = nameOfNewFinal;
+    void addToListFinal(string nameOfNewFinal){
         numOfFinales++;
+        listFinal[numOfFinales] = nameOfNewFinal;
     }
 
 };
