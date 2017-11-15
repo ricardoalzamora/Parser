@@ -28,7 +28,9 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        Tree.h \
+        ListRules.h
 
 FORMS += \
         mainwindow.ui

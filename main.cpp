@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include "Tree.h"
+#include "ListRules.h"
 
 int main(int argc, char *argv[])
 {
