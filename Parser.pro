@@ -30,7 +30,8 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
         Tree.h \
-        ListRules.h
+        ListRules.h \
+        Ejecutar.h
 
 FORMS += \
         mainwindow.ui

@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "Ejecutar.h"
+
+Ejecutar ejecutar = Ejecutar();
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,4 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+
+    ejecutar.separatePartsOfRule(ui->lineEdit->text().toStdString());
+    ui->listWidget->addItem(ui->lineEdit->text());
+    ui->lineEdit->clear();
+    //ejecutar.separatePartsOfRule("S->a|ah|jj");
+
 }

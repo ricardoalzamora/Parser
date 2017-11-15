@@ -1,5 +1,3 @@
-using namespace std;
-const int VACIO = -1;
 class Tree{
     private:
 
@@ -10,7 +8,7 @@ class Tree{
     public:
     Tree(string caracter){
         this->caracter = caracter;
-        numOfChildren = VACIO;
+        numOfChildren = -1;
     }
 
     string getCaracter(){

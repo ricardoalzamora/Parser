@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace  std;
+
 class ListRules{
     private:
     string initial;
@@ -7,20 +10,32 @@ class ListRules{
     public:
     ListRules(string initial){
         this->initial = initial;
-        numOfFinales = VACIO;
+        numOfFinales = 0;
     }
 
     string getInitial(){
         return initial;
     }
 
-    string* GetListFinal(){
+    string* getListFinal(){
         return listFinal;
     }
 
-    void addToListFinal(string nameOfNewFinal){
-        ++numOfFinales;
+    int getnumOfFinales(){
+        return numOfFinales;
+    }
+
+    string getFinalPerPosition(int position){
+        if(position < numOfFinales){
+            return listFinal [position];
+        }else{
+            return "";
+        }
+    }
+
+    void addToListFinal(string nameOfNewFinal){        
         listFinal[numOfFinales] = nameOfNewFinal;
+        numOfFinales++;
     }
 
 };

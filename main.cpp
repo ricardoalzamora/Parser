@@ -1,13 +1,15 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "Tree.h"
-#include "ListRules.h"
+
 
 int main(int argc, char *argv[])
 {
+    //separatePartsOfRule("S->a|ah|j");
     QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
+
     return a.exec();
+
 }

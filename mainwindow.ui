@@ -49,16 +49,6 @@
      <string>Regla</string>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>140</y>
-      <width>256</width>
-      <height>291</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
@@ -125,6 +115,16 @@
     </property>
     <property name="text">
      <string>Revisar</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>256</width>
+      <height>301</height>
+     </rect>
     </property>
    </widget>
   </widget>
