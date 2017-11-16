@@ -1,7 +1,4 @@
-//#include "ui_mainwindow.h"
 #include "ListRules.h"
-#include "Tree.h"
-#include <string>
 
 class Ejecutar{
 public:
@@ -104,13 +101,6 @@ public:
             }
         }
         deleteRecursionPerLeft(ui);
-
-        for(int i = 0; i <= numOfRules; i++){
-            cout<<listRules[i]->getInitial()<<": "<<listRules[i]->getNumOfFinales()<<endl;
-            for(int j = 0; j <= listRules[i]->getNumOfFinales(); j++){
-                cout<<listRules[i]->getFinalPerPosition(j)<<endl;
-            }
-        }
 
     }
 

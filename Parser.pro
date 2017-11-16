@@ -29,7 +29,6 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
-        Tree.h \
         ListRules.h \
         Ejecutar.h
 
