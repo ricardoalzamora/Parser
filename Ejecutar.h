@@ -53,28 +53,40 @@ public:
                 }
             }
             ui->listWidget->addItem(QString::fromStdString(newRuleView));
-        }
-        if(indexSecond != -1){
-            ++numOfRules;
-            listRules[numOfRules] = new ListRules(std::to_string(caracterForNewFinal).substr(1));
-            for(int i = 0; i <= indexFirst; i++){
-                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i].substr(1));
+
+            if(indexSecond != -1){
+                ++numOfRules;
+                listRules[numOfRules] = new ListRules(std::to_string(caracterForNewFinal).substr(1));
+                for(int i = 0; i <= indexFirst; i++){
+                    listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i].substr(1));
+                }
+                for(int i = 0; i <= indexFirst; i++){
+                    listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i].substr(1) + std::to_string((char)caracterForNewFinal).substr(1));
+                }
+                newRuleView = listRules[numOfRules]->getInitial() + "->";
+                for(int i = 0; i <= listRules[numOfRules]->getNumOfFinales(); i++){
+                    newRuleView.append(listRules[numOfRules]->getFinalPerPosition(i));
+                    if(i != listRules[numOfRules]->getNumOfFinales()){
+                        newRuleView.append("|");
+                    }
+                }
+                ui->listWidget->addItem(QString::fromStdString(newRuleView));
             }
-            for(int i = 0; i <= indexFirst; i++){
-                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i].substr(1) + std::to_string((char)caracterForNewFinal).substr(1));
-            }
-            string newRuleView = listRules[numOfRules]->getInitial() + "->";
+        }else{
+            string newRule = listRules[numOfRules]->getInitial() + "->";
             for(int i = 0; i <= listRules[numOfRules]->getNumOfFinales(); i++){
-                newRuleView.append(listRules[numOfRules]->getFinalPerPosition(i));
+                newRule.append(listRules[numOfRules]->getFinalPerPosition(i));
                 if(i != listRules[numOfRules]->getNumOfFinales()){
-                    newRuleView.append("|");
+                    newRule.append("|");
                 }
             }
-            ui->listWidget->addItem(QString::fromStdString(newRuleView));
+            ui->listWidget->addItem(QString::fromStdString(newRule));
         }
+
     }
     void separatePartsOfRule(string rule, Ui::MainWindow *ui = NULL){
         int last = 0;
+        bool o = false;
         for(int i = 0; i < rule.length(); i++){
             if(rule[i] == '-' && rule[i+1] == '>'){
                 ++numOfRules;
@@ -82,15 +94,17 @@ public:
                 last = i + 2;
             }
             if((i == rule.length() - 1)){
-                listRules[numOfRules]->addToListFinal(rule.substr(last, rule.length()));
+                listRules[numOfRules]->addToListFinal(rule.substr(last));
                 last = i;
             }
             if(rule[i] == '|' ){
                 listRules[numOfRules]->addToListFinal(rule.substr(last, i - last));
                 last = i + 1;
+                o = true;
             }
         }
         deleteRecursionPerLeftA(ui);
+
         for(int i = 0; i <= numOfRules; i++){
             cout<<listRules[i]->getInitial()<<": "<<listRules[i]->getNumOfFinales()<<endl;
             for(int j = 0; j <= listRules[i]->getNumOfFinales(); j++){
