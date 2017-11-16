@@ -17,12 +17,20 @@ class ListRules{
         return initial;
     }
 
+    void setInitial(string initial){
+        this->initial = initial;
+    }
+
     string* getListFinal(){
         return listFinal;
     }
 
-    int getnumOfFinales(){
+    int getNumOfFinales(){
         return numOfFinales + 1;
+    }
+
+    void setNumOfFinales(int numOfFinales){
+        this->numOfFinales = numOfFinales;
     }
 
     string getFinalPerPosition(int position){

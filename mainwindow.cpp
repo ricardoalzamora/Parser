@@ -18,15 +18,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-
-    ejecutar.separatePartsOfRule(ui->lineEdit->text().toStdString());
-    ui->listWidget->addItem(ui->lineEdit->text());
-    ui->lineEdit->clear();
-
+    ejecutar.separatePartsOfRule(ui->lineEdit->text().toStdString(), ui);
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    ui->listWidget->clear();
-    ejecutar.deleteRecursionPerLeft(ui);
+    ejecutar.imprimirReglas();
 }

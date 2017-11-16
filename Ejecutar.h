@@ -1,14 +1,76 @@
 #include "ui_mainwindow.h"
 #include "ListRules.h"
 #include "Tree.h"
+#include <string>
 
 class Ejecutar{
 public:
     int numOfRules = -1;
-    int caracterForNewFinal = 128;
+    char caracterForNewFinal = 48;
     ListRules *listRules[50];
 
-    void separatePartsOfRule(string rule){
+    void imprimirReglas(){
+        for(int i = 0; i <= numOfRules; i++){
+            cout<<endl<<listRules[i]->getInitial()<<":"<<endl;
+            for(int j = 0; j <= listRules[i]->getNumOfFinales(); j++){
+                cout<<listRules[i]->getFinalPerPosition(j)<<" - ";
+            }
+        }
+    }
+    void deleteRecursionPerLeftA(Ui::MainWindow *ui = NULL){
+        string ruleFinalAuxFirst[50];
+        int indexFirst = -1;
+        string ruleFinalAuxSecond[50];
+        int indexSecond = -1;
+        for(int i = 0; i <= listRules[numOfRules]->getNumOfFinales(); i++){
+            if(listRules[numOfRules]->getFinalPerPosition(i)[0] == listRules[numOfRules]->getInitial()[0]){
+                if(listRules[numOfRules]->getFinalPerPosition(i) != ""){
+                    ++indexFirst;
+                    ruleFinalAuxFirst[indexFirst] = listRules[numOfRules]->getFinalPerPosition(i)[1];
+                }
+
+            }else{
+                if(listRules[numOfRules]->getFinalPerPosition(i) != ""){
+                    ++indexSecond;
+                    ruleFinalAuxSecond[indexSecond] = listRules[numOfRules]->getFinalPerPosition(i) + std::to_string((char)caracterForNewFinal).substr(1);
+                }
+            }
+        }
+
+        if(indexFirst != -1){
+            listRules[numOfRules]->setNumOfFinales(-1);
+            for(int i = 0; i <= indexSecond; i++){
+                listRules[numOfRules]->addToListFinal(ruleFinalAuxSecond[i]);
+            }
+            string newRuleView = listRules[numOfRules]->getInitial() + "->";
+            for(int i = 0; i <= listRules[numOfRules]->getNumOfFinales(); i++){
+                newRuleView.append(listRules[numOfRules]->getFinalPerPosition(i));
+                if(i != listRules[numOfRules]->getNumOfFinales()){
+                    newRuleView.append("|");
+                }
+            }
+            ui->listWidget->addItem(QString::fromStdString(newRuleView));
+        }
+        if(indexSecond != -1){
+            ++numOfRules;
+            listRules[numOfRules] = new ListRules(std::to_string(caracterForNewFinal).substr(1));
+            for(int i = 0; i <= indexFirst; i++){
+                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i]);
+            }
+            for(int i = 0; i <= indexFirst; i++){
+                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i] + std::to_string((char)caracterForNewFinal).substr(1));
+            }
+            string newRuleView = listRules[numOfRules]->getInitial() + "->";
+            for(int i = 0; i <= listRules[numOfRules]->getNumOfFinales(); i++){
+                newRuleView.append(listRules[numOfRules]->getFinalPerPosition(i));
+                if(i != listRules[numOfRules]->getNumOfFinales()){
+                    newRuleView.append("|");
+                }
+            }
+            ui->listWidget->addItem(QString::fromStdString(newRuleView));
+        }
+    }
+    void separatePartsOfRule(string rule, Ui::MainWindow *ui = NULL){
         int last = 0;
         for(int i = 0; i < rule.length(); i++){
             if(rule[i] == '-' && rule[i+1] == '>'){
@@ -25,41 +87,19 @@ public:
                 last = i + 1;
             }
         }
-        /*for(int i = 0; i <= numOfRules; i++){
-            cout<<listRules[i]->getInitial()<<listRules[i]->getInitial().length()<<endl;
-            for(int j = 0; j <= listRules[i]->getnumOfFinales(); j++){
+        deleteRecursionPerLeftA(ui);
+        for(int i = 0; i <= numOfRules; i++){
+            cout<<listRules[i]->getInitial()<<": "<<listRules[i]->getNumOfFinales()<<endl;
+            for(int j = 0; j <= listRules[i]->getNumOfFinales(); j++){
                 cout<<listRules[i]->getFinalPerPosition(j)<<endl;
             }
-            cout<<listRules[i]->getnumOfFinales();
-        }*/
-
-    }
-
-    void deleteRecursionPerLeft(Ui::MainWindow *ui = NULL){
-        for(int i = 0; i <= numOfRules; i++){
-            string itemToListView = listRules[i]->getInitial() + "->";
-            for(int j = 0; j <= listRules[i]->getnumOfFinales(); j++){
-
-                if(listRules[i]->getInitial()[0] == listRules[i]->getFinalPerPosition(j)[0]){
-                    listRules[i]->setFinalPerPosition(j
-                    , listRules[i]->getFinalPerPosition(j).substr(1, listRules[i]->getFinalPerPosition(j).length())
-                    + (char)caracterForNewFinal);
-                    caracterForNewFinal++;
-                }
-                itemToListView.append(listRules[i]->getFinalPerPosition(j));
-                if(j < listRules[i]->getnumOfFinales() - 1){
-                    itemToListView.append("|");
-                }
-            }
-
-            ui->listWidget->addItem(QString::fromStdString(itemToListView));
-
         }
+
     }
 
     bool runRecursion(string word, int index){
         for(int i = 0; i <= numOfRules; i++){
-            for(int j = 0; j <= listRules[i]->getnumOfFinales(); j++){
+            for(int j = 0; j <= listRules[i]->getNumOfFinales(); j++){
 
             }
         }
