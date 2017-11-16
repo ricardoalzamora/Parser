@@ -18,10 +18,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    ejecutar.separatePartsOfRule(ui->lineEdit->text().toStdString(), ui);
+    if(ui->lineEdit->text() != ""){
+        ejecutar.separatePartsOfRule(ui->lineEdit->text().toStdString(), ui);
+        ui->lineEdit->clear();
+    }
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_validWordKeyBotton_clicked()
 {
-    ejecutar.imprimirReglas();
+    if(ui->wordKeyLineEdit->text() != ""){
+        if(ejecutar.runRecursion(ui->wordKeyLineEdit->text().toStdString(), "")){
+            ui->aceptationLabel->setText("ACEPTADO");
+            ui->aceptationLabel->setStyleSheet("background: green");
+        }else{
+            ui->aceptationLabel->setText("NO ACEPTADO");
+            ui->aceptationLabel->setStyleSheet("background: red");
+        }
+    }
+
 }

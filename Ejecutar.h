@@ -1,4 +1,4 @@
-#include "ui_mainwindow.h"
+//#include "ui_mainwindow.h"
 #include "ListRules.h"
 #include "Tree.h"
 #include <string>
@@ -17,7 +17,7 @@ public:
             }
         }
     }
-    void deleteRecursionPerLeftA(Ui::MainWindow *ui = NULL){
+    void deleteRecursionPerLeft(Ui::MainWindow *ui = NULL){
         string ruleFinalAuxFirst[50];
         int indexFirst = -1;
         string ruleFinalAuxSecond[50];
@@ -103,7 +103,7 @@ public:
                 o = true;
             }
         }
-        deleteRecursionPerLeftA(ui);
+        deleteRecursionPerLeft(ui);
 
         for(int i = 0; i <= numOfRules; i++){
             cout<<listRules[i]->getInitial()<<": "<<listRules[i]->getNumOfFinales()<<endl;
@@ -114,10 +114,38 @@ public:
 
     }
 
-    bool runRecursion(string word, int index){
-        for(int i = 0; i <= numOfRules; i++){
-            for(int j = 0; j <= listRules[i]->getNumOfFinales(); j++){
+    string validInsideString(string wordKey, char caracter){
+        for(int i = 0; i < wordKey.length(); i++){
+            if(wordKey[i] == caracter){
+                return std::to_string(caracter);
+            }
+        }
+        return "";
+    }
 
+    bool runRecursion(string word, string root, bool isRoot = true){
+        if(isRoot){
+            root = listRules[0]->getInitial();
+        }
+
+        for(int i = 0; i <= numOfRules ; i++){
+
+            if((isRoot) || listRules[i]->getInitial() == root){
+                for(int j = 0; j <= listRules[i]->getNumOfFinales(); j++){
+                    string scannResult = validInsideString(listRules[i]->getFinalPerPosition(j), word[0]);
+                    if(scannResult != ""){
+                        if(word.length() == 1){
+                            return true;
+                        }
+                        if(runRecursion(word.substr(1), scannResult, false)){
+                            return true;
+                        }
+                    }else{
+                        if(word.length() == 1){
+                            return false;
+                        }
+                    }
+                }
             }
         }
     }
