@@ -26,13 +26,13 @@ public:
             if(listRules[numOfRules]->getFinalPerPosition(i)[0] == listRules[numOfRules]->getInitial()[0]){
                 if(listRules[numOfRules]->getFinalPerPosition(i) != ""){
                     ++indexFirst;
-                    ruleFinalAuxFirst[indexFirst] = listRules[numOfRules]->getFinalPerPosition(i)[1];
+                    ruleFinalAuxFirst[indexFirst] = listRules[numOfRules]->getFinalPerPosition(i);
                 }
 
             }else{
                 if(listRules[numOfRules]->getFinalPerPosition(i) != ""){
                     ++indexSecond;
-                    ruleFinalAuxSecond[indexSecond] = listRules[numOfRules]->getFinalPerPosition(i) + std::to_string((char)caracterForNewFinal).substr(1);
+                    ruleFinalAuxSecond[indexSecond] = listRules[numOfRules]->getFinalPerPosition(i);
                 }
             }
         }
@@ -41,6 +41,9 @@ public:
             listRules[numOfRules]->setNumOfFinales(-1);
             for(int i = 0; i <= indexSecond; i++){
                 listRules[numOfRules]->addToListFinal(ruleFinalAuxSecond[i]);
+            }
+            for(int i = 0; i <= indexSecond; i++){
+                listRules[numOfRules]->addToListFinal(ruleFinalAuxSecond[i] + std::to_string((char)caracterForNewFinal).substr(1));
             }
             string newRuleView = listRules[numOfRules]->getInitial() + "->";
             for(int i = 0; i <= listRules[numOfRules]->getNumOfFinales(); i++){
@@ -55,10 +58,10 @@ public:
             ++numOfRules;
             listRules[numOfRules] = new ListRules(std::to_string(caracterForNewFinal).substr(1));
             for(int i = 0; i <= indexFirst; i++){
-                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i]);
+                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i].substr(1));
             }
             for(int i = 0; i <= indexFirst; i++){
-                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i] + std::to_string((char)caracterForNewFinal).substr(1));
+                listRules[numOfRules]->addToListFinal(ruleFinalAuxFirst[i].substr(1) + std::to_string((char)caracterForNewFinal).substr(1));
             }
             string newRuleView = listRules[numOfRules]->getInitial() + "->";
             for(int i = 0; i <= listRules[numOfRules]->getNumOfFinales(); i++){
